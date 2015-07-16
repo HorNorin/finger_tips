@@ -16,7 +16,12 @@ gem 'bower-rails'
 
 group :development, :test do
   gem 'byebug'
-  gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'capybara'
+  gem 'rspec-rails'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'web-console', '~> 2.0'
+  gem 'cucumber-rails', require: false
 end
 
