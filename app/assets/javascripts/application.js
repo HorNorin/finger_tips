@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap
 //= require angular/angular
+//= require angular-messages/angular-messages
 //= require_tree .

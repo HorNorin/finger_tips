@@ -1,2 +1,68 @@
 @import "bootstrap";
 @import "bootstrap-sprockets";
+
+@font-face {
+  font-family: "Sans Thirteen";
+  src: url("/assets/SansThirteenBlack.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-size: 14px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Sans Thirteen";
+}
+
+#logo {
+  color: #555;
+  text-transform: lowercase;
+  font-family: "Sans Thirteen";
+  font-size: 1.714285714em; // 24px / 14px
+  letter-spacing: 1.5px;
+  transition: .2s all;
+  &:hover {
+    color: #d9534f;
+  }
+}
+
+#register, #login {
+  h2 {
+    font-size: 3.214285714em; // 26px / 14px
+    text-align: center;
+    margin-bottom: 0.5em;
+    letter-spacing: 1.5px;
+  }
+  
+  form {
+    padding: 2em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+}
+
+.errors {
+  padding-left: 5px;
+  list-style: none;
+  i {
+    margin-right: 1em;
+  }
+  li {
+    color: #d9534f;
+  }
+}
+
+.error-messages {
+  float: right;
+  text-align: right;
+  color: #d9534f;
+}
+
+.field_with_errors {
+  border-color: #d9534f;
+  input {
+    border-color: #d9534f;
+  }
+}
