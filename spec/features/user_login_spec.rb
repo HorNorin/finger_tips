@@ -6,7 +6,8 @@ RSpec.feature "User login", type: :feature do
             username: "Norin",
             email: "norin@example.com",
             password: "secret",
-            password_confirmation: "secret"
+            password_confirmation: "secret",
+            account_activated: true
   end
   
   scenario "User login with valid credential" do

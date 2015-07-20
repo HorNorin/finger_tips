@@ -26,7 +26,18 @@ RSpec.describe SessionsController, type: :controller do
               email: "norin@example.com",
               username: "norin",
               password: "secret",
-              password_confirmation: "secret"
+              password_confirmation: "secret",
+              account_activated: true
+    end
+    
+    context "account is not activated" do
+      it "should render template new" do
+        @user.account_activated = false
+        @user.save
+        
+        post :create, {email: @user.email, password: @user.password}
+        expect(response).to render_template(:new)
+      end
     end
     
     context "user has not logged in" do
