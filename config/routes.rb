@@ -3,9 +3,13 @@ Rails.application.routes.draw do
   
   get "/register" => "users#new"
   get "/login" => "sessions#new"
+  get "/logout" => "sessions#destroy"
   get "/account_activate" => "accounts#activate"
   post "/login" => "sessions#create", as: :session
-  get "/logout" => "sessions#destroy"
+  
+  get "/password_resets/edit" => "password_resets#edit"
+  post "/password_resets/update" => "password_resets#update", as: :update_password
+  resources :password_resets, only: [:new, :create]
 
   resources :users, except: [:index, :destroy]
 
