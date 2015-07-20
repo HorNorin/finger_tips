@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
   
   validates_format_of :email, with: /\A[^@\s]+@\w+\.\w{3,4}\z/i
   
+  def authenticate(password)
+    password_hash == encrypt(password)
+  end
+  
   private
   
   def encrypt_password
