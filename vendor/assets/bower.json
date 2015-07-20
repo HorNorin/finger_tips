@@ -2,6 +2,7 @@
   "name": "dsl-generated dependencies",
   "dependencies": {
     "angular": "latest",
+    "angular-messages": "latest",
     "angular-mocks": "latest"
   }
 }
