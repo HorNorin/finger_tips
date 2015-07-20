@@ -1,4 +1,4 @@
-describe("passwordConfirm", function() {
+describe("Directive: passwordConfirm", function() {
   var scope, form;
   
   beforeEach(module("App"));

@@ -1,4 +1,4 @@
-describe("email", function() {
+describe("Directive: email", function() {
   var scope, form;
   
   beforeEach(module("App"));

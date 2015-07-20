@@ -1,4 +1,4 @@
-describe("unique", function() {
+describe("Directive: unique", function() {
   var scope, form, input, fakeService, q;
   
   beforeEach(module("App"));
