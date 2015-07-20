@@ -138,4 +138,16 @@ RSpec.describe User, type: :model do
                     .not_to eq(subject.password_hash)
     end
   end
+  
+  describe "authenticate" do
+    it "with valid credential" do
+      subject.save
+      expect(subject.authenticate(subject.password)).to eq(true)
+    end
+    
+    it "with invalid credential" do
+      subject.save
+      expect(subject.authenticate("wrong password")).to eq(false)
+    end
+  end
 end

@@ -2,24 +2,23 @@
   <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
     <h2>Login to Fingertips</h2>
 
-    <%= form_for @user, url: session_path, html: { class: "form" } do |f| %>
-      <%= render "shared/error_messages", object: f.object %>
+    <%= form_tag session_path, class: "form" do |f| %>
       <div class="form-group">
-        <%= f.label :email %>
-        <%= f.email_field :email, class: "form-control", autofocus: true %>
+        <%= label_tag :email %>
+        <%= email_field_tag :email, params[:email], class: "form-control", autofocus: true %>
       </div>
       
       <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, class: "form-control" %>
+        <%= label_tag :password %>
+        <%= password_field_tag :password, "", class: "form-control" %>
       </div>
       
       <div class="form-group">
-        <%= f.check_box :remember_me %> <label>Remember me</label>
+        <%= check_box_tag :remember_me %> <label for="remember_me">Remember me</label>
       </div>
       
       <div class="form-group">
-        <%= f.submit "Login", class: "btn btn-danger form-control" %>
+        <%= submit_tag "Login", class: "btn btn-danger form-control" %>
       </div>
       
       <%= link_to "Forgot your password?", "#" %>
