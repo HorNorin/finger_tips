@@ -26,4 +26,11 @@ module SessionsHelper
   def user_logged_in?
     !current_user.nil?
   end
+  
+  def authenticated_user!
+    unless user_logged_in?
+      flash[:error] = "You need to login before you can continue."
+      redirect_to root_path
+    end
+  end
 end

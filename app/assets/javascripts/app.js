@@ -1,4 +1,4 @@
-var app = angular.module("App", ["ngMessages", "ngResource", "ngAnimate"]);
+var app = angular.module("App", ["ngMessages", "ngResource", "ngAnimate", "ngtimeago"]);
 
 app.service("uniqueValidationService", function($http, $q) {
   this.isUnique = function(value, validateUrl) {
@@ -19,13 +19,21 @@ app.factory("Episode", function($resource) {
     search: {method: "GET", url: "/api/episodes/search"},
     index: {method: "GET"}
   });
-})
+});
+
+app.factory("Comment", function($resource) {
+  return $resource("/api/comments/:id", {id: "@id"});
+});
+
+app.factory("User", function($resource) {
+  return $resource("/api/users/:id", {id: "@id"});
+});
 
 app.factory("sharedScope", function($rootScope) {
   var scope = $rootScope.$new(true);
   scope.data = {};
   return scope;
-})
+});
 
 app.controller("HomeController", function($scope, sharedScope, Episode) {
   $scope.object = sharedScope.data;
@@ -44,6 +52,43 @@ app.controller("HomeController", function($scope, sharedScope, Episode) {
       Episode.index({page: page}, function(object) {
         $scope.object.paginate = object;
       });
+    }
+  }
+});
+
+app.directive("commentArea", function() {
+  return {
+   restrict: "AE",
+   templateUrl: "/templates/directives/comment_area.html",
+   scope: {
+    isLoggedIn: "=loggedIn",
+    episode: "=episode"
+   },
+   controller: function($scope, Comment) {
+    $scope.comment = {};
+    $scope.comments = Comment.query({episode_id: $scope.episode});
+    $scope.createComment = function() {
+      $scope.comment.episode_id = $scope.episode;
+      var comment = new Comment({comment: $scope.comment});
+      Comment.save(comment, function(newComment) {
+        $scope.comments.unshift(newComment);
+        $scope.comment = {};
+      });
+    }
+   }
+  }
+});
+
+app.directive("timeAgo", function() {
+  return {
+    restrict: "AE",
+    template: "{{ timeago }}",
+    scope: { timeAgo: "=" },
+    controller: function($scope, $interval, $filter) {
+      $scope.timeago = $filter("timeago")(new Date($scope.timeAgo));
+      $interval(function() {
+        $scope.timeago = $filter("timeago")(new Date($scope.timeAgo));
+      }, 1000 * 60);
     }
   }
 });
