@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720065241) do
+ActiveRecord::Schema.define(version: 20150720094446) do
+
+  create_table "episodes", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.string   "youtube_url"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "duration",    default: 0
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

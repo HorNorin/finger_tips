@@ -12,8 +12,12 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create]
 
   resources :users, except: [:index, :destroy]
+  
+  resources :episodes
 
   namespace :api do
     get "users/validate" => "users#validate"
+    get "episodes/search" => "episodes#search"
+    resources :episodes, only: :index
   end
 end

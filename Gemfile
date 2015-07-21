@@ -13,6 +13,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootstrap-sass'
 gem 'bower-rails'
+gem 'carrierwave'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 gem 'font-awesome-rails'
 
 group :development, :test do

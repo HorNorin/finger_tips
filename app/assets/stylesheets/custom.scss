@@ -1,5 +1,5 @@
-@import "bootstrap";
 @import "bootstrap-sprockets";
+@import "bootstrap";
 
 @font-face {
   font-family: "Sans Thirteen";
@@ -14,6 +14,10 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: "Sans Thirteen";
+}
+
+a[ng-click] {
+  cursor: pointer;
 }
 
 #logo {
@@ -41,6 +45,162 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid #ccc;
     border-radius: 5px;
   }
+}
+
+#episodes .card {
+  position: relative;
+  margin-bottom: 30px;
+  > a {
+    height: 170px;
+    display: block;
+    border-radius: 3px;
+    border: 1px solid #474747;
+    box-shadow: 0 0 1px #eee;
+    transition: all .3s;
+    &:hover {
+      box-shadow: 0 0 3px red;
+    }
+  }
+  
+  div {
+    height: 100%;
+    background-size: 100% 100%;
+  }
+  
+  h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    a {
+      top: 5px;
+      left: 20px;
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      color: #eee;
+      text-transform: capitalize;
+      font-size: 1.285714286em; // 18px / 14px
+      font-weight: bold;
+    }
+    
+    span {
+      color: #eee;
+      font-size: 1em; // 14px / 14px
+      top: 7px;
+      right: 20px;
+      position: absolute;
+    }
+  }
+}
+
+#episodes {
+  #head {
+    overflow: hidden;
+    margin: 0 15px;
+    margin-bottom: 20px;
+  }
+  #left {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    list-style: none;
+    width: 150px;
+    float: left;
+    li {
+      float: left;
+      padding: 10px;
+      font-size: 20px;
+      width: 50%;
+      box-sizing: border-box;
+      letter-spacing: 1.5px;
+      font-family: "Sans Thirteen";
+      a {
+        color: #555;
+        display: block;
+        transition: all .3s;
+        &:hover {
+          color: #d9534f;
+        }
+      }
+    }
+  }
+
+  #right {
+    width: 300px;
+    float: right;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: right;
+    > form > div {
+      padding: 7px;
+      margin-bottom: 0;
+    }
+  }
+}
+
+div.ng-enter {
+  opacity: 0;
+  transition: all 1s;
+  -webkit-transition: all 1s;
+}
+
+div.ng-enter-active {
+  opacity: 1;
+}
+
+div.pagination {
+  padding: 0;
+  margin: 0;
+}
+
+.pagination {
+  margin-left: 0;
+  margin-bottom: 18px;
+  list-style: none;
+  text-align: center;
+  *zoom: 1;
+  display: block;
+}
+
+.pagination:before,
+.pagination:after {
+  display: table;
+  content: "";
+}
+
+.pagination:after {
+  clear: both;
+}
+
+.pagination li {
+  display: none;
+  &:first-child, &:last-child {
+    display: inline;
+  }
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 5px 14px;
+  -webkit-border-radius: 15px !important;
+  -moz-border-radius: 15px !important;
+  border-radius: 15px !important;
+}
+
+.pagination .next {
+  float: right;
+}
+
+.pagination .prev {
+  float: left;
+}
+
+.pagination .disabled a,
+.pagination .disabled a:hover {
+  color: #999999;
+  cursor: default;
 }
 
 .alert {
