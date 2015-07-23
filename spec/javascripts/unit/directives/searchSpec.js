@@ -13,14 +13,14 @@ describe("Directive: search", function() {
       "<form name='form'>" +
         "<input name='title' ng-model='object.title'>" +
       "</form>" +
-      "<div search='object.title'></div>"
+      "<div episode-search='object.title'></div>"
     );
     
     scope.object = {};
     $compile(element)(scope);
     
     input = scope.form.title;
-    httpBackend.whenGET("templates/directives/search.html").respond(200);
+    httpBackend.whenGET("/templates/directives/episode_search.html").respond(200);
     httpBackend.flush();
   }));
   

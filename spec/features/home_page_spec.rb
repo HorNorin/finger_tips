@@ -25,7 +25,7 @@ RSpec.feature "Home page", type: :feature do
     
     visit root_path
     expect(page).to have_selector("li", text: "Logout")
-    expect(page).to have_selector("li", text: "Setting")
+    expect(page).to have_selector("li", text: "Account")
     expect(page).to have_selector("a", text: @user.username.capitalize)
   end
   

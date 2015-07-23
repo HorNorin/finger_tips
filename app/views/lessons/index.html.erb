@@ -1,4 +1,4 @@
-<div id="episodes" class="row" ng-controller="HomeController">
+<div id="episodes" class="row" ng-controller="LessonsController">
   <div id="head">
     <ul id="left">
       <li><%= link_to "New", "#" %></li>
@@ -8,17 +8,17 @@
       <%= form_tag "#", class: "form-inline" do %>
         <div class="form-group">
           <div class="input-group">
-            <%= text_field_tag :title, params[:title], class: "form-control", placeholder: "Search", "ng-model" => "object.title" %>
+            <%= text_field_tag :name, params[:name], class: "form-control", placeholder: "Search", "ng-model" => "object.name" %>
             <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
           </div>
         </div>
       <% end %>
     </div>
   </div>
-  <div episode-search="object.title"></div>
+  <div lesson-search="object.name"></div>
 </div>
 
-<div ng-controller="HomeController" ng-show="object.paginate.totalPages > 1">
+<div ng-controller="LessonsController" ng-show="object.paginate.totalPages > 1">
   <div class="pagination">
     <ul class="pagination">
       <li class="prev previous_page" ng-class="{ disabled : object.paginate.prevPage == null }"><a ng-click="goto(object.paginate.prevPage)">Previous</a></li>

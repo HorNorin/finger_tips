@@ -10,7 +10,10 @@ RSpec.feature "New user registration", type: :feature do
     fill_in "Password confirmation", with: "secret"
     click_button "Register"
     
-    text = "A confirmation email has been sent to norin@example.com. Please check your email address."
+    text = <<-fin
+        A confirmation email has been sent to norin@example.com.
+        Please check your email address.
+    fin
     expect(page).to have_text(text)
     expect(page).to have_css("div.alert-success")
   end

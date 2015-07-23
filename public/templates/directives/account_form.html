@@ -1,0 +1,47 @@
+<div id="register" class="row">
+  <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+    <h2>Account Setting</h2>
+
+    <form name="form" class="form" ng-submit="updateAccount()" novalidate>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <span ng-messages="form.email.$error" ng-if="form.email.$dirty || form.email.$touched" class="error-messages">
+          <span ng-message="required">Required</span>
+          <span ng-message="email">Invalid</span>
+          <span ng-message="unique">Exists</span>
+        </span>
+        <input type="email" name="email" ng-model="user.email" class="form-control" ng-class="(form.email.$invalid && form.email.$touched) ? 'field_with_errors' : ''"
+        unique="email" old="{{ emailAddress }}" url="/api/users/validate" required email autofocus>
+      </div>
+      
+      <div class="form-group">
+        <label for="username">Username</label>
+        <span ng-messages="form.username.$error" ng-if="form.username.$dirty || form.username.$touched" class="error-messages">
+          <span ng-message="required">Required</span>
+          <span ng-message="minlength">Too short(5)</span>
+          <span ng-message="maxlength">Too long(25)</span>
+        </span>
+        <input type="text" name="username" ng-model="user.username" class="form-control" ng-class="(form.username.$invalid && form.username.$touched) ? 'field_with_errors' : ''"
+        required ng-minlength="5" ng-maxlength="25">
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" ng-model="user.password">
+      </div>
+      
+      <div class="form-group">
+        <label for="passwordConfirm">Password confirmation</label>
+        <span ng-messages="form.passwordConfirm.$error" class="error-messages">
+          <span ng-message="passwordConfirm">Not match</span>
+        </span>
+        <input type="password" name="passwordConfirm" ng-model="user.password_confirmation" class="form-control" password-confirm="user.password" ng-class="form.passwordConfirm.$invalid ? 'field_with_errors' : ''">
+      </div>
+      
+      <div class="form-group">
+        <input type="submit" class="btn btn-danger form-control" ng-disabled="form.$invalid" value="Update">
+      </div>
+    </form>
+
+  </div>
+</div>

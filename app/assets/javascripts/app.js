@@ -14,6 +14,13 @@ app.service("uniqueValidationService", function($http, $q) {
   }
 });
 
+app.factory("Lesson", function($resource) {
+  return $resource("/api/lessons/:id", {name: "@name", page: "@page"}, {
+    search: {method: "GET", url: "/api/lessons/search"},
+    index: {method: "GET"}
+  });
+});
+
 app.factory("Episode", function($resource) {
   return $resource("/api/episodes/:id", {title: "@title", page: "@page"}, {
     search: {method: "GET", url: "/api/episodes/search"},
@@ -26,7 +33,9 @@ app.factory("Comment", function($resource) {
 });
 
 app.factory("User", function($resource) {
-  return $resource("/api/users/:id", {id: "@id"});
+  return $resource("/api/users/:id", {id: "@id"}, {
+    update: {method: "POST", url: "/api/users/update", isArray: false}
+  });
 });
 
 app.factory("sharedScope", function($rootScope) {
@@ -52,6 +61,50 @@ app.controller("HomeController", function($scope, sharedScope, Episode) {
       Episode.index({page: page}, function(object) {
         $scope.object.paginate = object;
       });
+    }
+  }
+});
+
+app.controller("LessonsController", function($scope, sharedScope, Lesson) {
+  $scope.object = sharedScope.data;
+  
+  Lesson.index({}, function(object) {
+    $scope.object.paginate = object;
+    $scope.object.searchMode = false;
+  });
+  
+  $scope.goto = function(page) {
+    if ($scope.object.searchMode) {
+      Lesson.search({name: $scope.object.name, page: page}, function(object) {
+        $scope.object.paginate = object;
+      });
+    } else {
+      Lesson.index({page: page}, function(object) {
+        $scope.object.paginate = object;
+      });
+    }
+  }
+});
+
+app.directive("account", function() {
+  return {
+    restrict: "AE",
+    templateUrl: "/templates/directives/account_form.html",
+    scope: {
+      emailAddress: "@emailAddress",
+      username: "@"
+    },
+    controller: function($scope, User) {
+      $scope.updateAccount = function() {
+        User.update($scope.user, function(location) {
+          window.location = location.path;
+        });
+      }
+      
+      $scope.user = {
+        email: $scope.emailAddress,
+        username: $scope.username
+      };
     }
   }
 });
@@ -93,14 +146,14 @@ app.directive("timeAgo", function() {
   }
 });
 
-app.directive("search", function(Episode, $timeout) {
+app.directive("episodeSearch", function(Episode, $timeout) {
   return {
     restrict: "AE",
     require: "?ngModel",
-    templateUrl: "templates/directives/search.html",
+    templateUrl: "/templates/directives/episode_search.html",
     link: function(scope, elem, attr, ngModel) {
       var timeout;
-      scope.$watch(attr.search, function(value) {
+      scope.$watch(attr.episodeSearch, function(value) {
         if (timeout) $timeout.cancel(timeout);
         
         timeout = $timeout(function() {
@@ -111,6 +164,34 @@ app.directive("search", function(Episode, $timeout) {
             });
           } else if(value !== undefined) {
             Episode.index({}, function(object) {
+              scope.object.paginate = object;
+              scope.object.searchMode = false;
+            });
+          }
+        }, 500);
+      });
+    }
+  };
+});
+
+app.directive("lessonSearch", function(Lesson, $timeout) {
+  return {
+    restrict: "AE",
+    require: "?ngModel",
+    templateUrl: "/templates/directives/lesson_search.html",
+    link: function(scope, elem, attr, ngModel) {
+      var timeout;
+      scope.$watch(attr.lessonSearch, function(value) {
+        if (timeout) $timeout.cancel(timeout);
+        
+        timeout = $timeout(function() {
+          if (value && value !== "") {
+            Lesson.search({name: value}, function(object) {
+              scope.object.paginate = object;
+              scope.object.searchMode = true;
+            });
+          } else if(value !== undefined) {
+            Lesson.index({}, function(object) {
               scope.object.paginate = object;
               scope.object.searchMode = false;
             });
@@ -134,7 +215,8 @@ app.directive("passwordConfirm", function() {
       });
       
       ngModel.$validators.passwordConfirm = function(value) {
-        return value == scope.passwordConfirm;
+        if (!value && !scope.passwordConfirm) return true;
+        return value === scope.passwordConfirm;
       }
     }
   }
@@ -166,6 +248,8 @@ app.directive("unique", function(uniqueValidationService, $timeout) {
     link: function(scope, elem, attr, ngModel) {
       elem.bind("blur", function() {
         var params = {};
+        if (attr.old === ngModel.$viewValue) return;
+        
         params[attr.unique] = ngModel.$viewValue;
         
         uniqueValidationService.isUnique(params, attr.url)

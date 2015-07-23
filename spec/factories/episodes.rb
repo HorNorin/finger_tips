@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :episode do
+    lesson
     title "Episode"
     description "Episode's description"
     image "default.png"

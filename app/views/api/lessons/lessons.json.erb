@@ -1,0 +1,20 @@
+{
+  "lessons": [
+    <% @lessons.each_with_index do |lesson, index| %>
+    {
+      "id": "<%= lesson.id %>",
+      "name": "<%= lesson.name %>",
+      "start_episode_id": <%= lesson.episodes.first.id %>,
+      "created_at": "<%= lesson.created_at %>",
+      "updateed_at": "<%= lesson.updated_at %>",
+      "episode_count": <%= lesson.episodes.count %>
+    }
+    <%= "," unless index == @lessons.count - 1 %>
+    <% end %>
+  ],
+  "per_page": <%= @lessons.per_page %>,
+  "current": <%= @lessons.current_page %>,
+  "nextPage": <%= @lessons.next_page || "null" %>,
+  "prevPage": <%= @lessons.previous_page || "null" %>,
+  "totalPages": <%= @lessons.total_pages %>
+}
