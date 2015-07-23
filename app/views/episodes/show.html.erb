@@ -1,0 +1,48 @@
+<div class="row">
+  <div id="video-wrapper">
+    <div id="video">
+      <div id="video-container">
+        <iframe src="<%= @episode.youtube_url %>" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    
+    <div id="video-detail">
+      <h2><%= @episode.title %></h2>
+      <label>Published on <%= @episode.created_at.strftime "%d, %b %Y" %></label>
+      <p><%= @episode.description %></p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <center><h3>Episode lists</h3></center>
+      <table class="table table-bordered table-hover">
+        <tr class="episode-outline">
+          <td class="index">1</td>
+          <td class="title"><a href="#">Name</a></td>
+          <td class="duration">Duration</td>
+        </tr>
+        <tr class="episode-outline">
+          <td>1</td>
+          <td><a href="#">Name</a></td>
+          <td>Duration</td>
+        </tr>
+        <tr class="episode-outline">
+          <td>1</td>
+          <td><a href="#">Name</a></td>
+          <td>Duration</td>
+        </tr>
+        <tr class="episode-outline">
+          <td>1</td>
+          <td><a href="#">Name</a></td>
+          <td>Duration</td>
+        </tr>
+        <tr class="episode-outline">
+          <td>1</td>
+          <td><a href="#">Name</a></td>
+          <td>Duration</td>
+        </tr>
+      </table>
+    </div>
+    <comment-area logged-in="<%= user_logged_in? %>" episode="<%= @episode.id %>"></comment-area>
+  </div>
+</div>

@@ -3,6 +3,10 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   attr_accessor :password, :password_confirmation, :remember_me
   
+  has_many :comments
+  
+  mount_uploader :avatar, AvatarUploader
+  
   before_save :encrypt_password, if: :new_record_or_passwod_present?
   before_save :generate_activation_token, unless: :account_activated?
   after_save :send_activation_mail

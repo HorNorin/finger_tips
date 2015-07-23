@@ -10,12 +10,12 @@ RSpec.feature "Home page", type: :feature do
             account_activated: true
   end
   
-  scenario "User visit home page" do
-    5.times { FactoryGirl.create :episode }
+  # scenario "User visit home page" do
+  #   5.times { FactoryGirl.create :episode }
     
-    visit root_path
-    expect(page).to have_selector("div#episodes>div", count: 5)
-  end
+  #   visit root_path
+  #   expect(page).to have_selector("div#episodes>div", count: 5)
+  # end
   
   scenario "User has already logged in" do
     visit login_path

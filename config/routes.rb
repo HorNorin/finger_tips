@@ -13,11 +13,12 @@ Rails.application.routes.draw do
 
   resources :users, except: [:index, :destroy]
   
-  resources :episodes
+  resources :episodes, only: [:index, :show]
 
   namespace :api do
-    get "users/validate" => "users#validate"
+    get "episodes" => "episodes#index"
     get "episodes/search" => "episodes#search"
-    resources :episodes, only: :index
+    get "users/validate" => "users#validate"
+    resources :comments, only: [:index, :create]
   end
 end

@@ -3,6 +3,7 @@
 
 asset 'angular'
 asset 'angular-resource'
+asset 'ng-timeago'
 asset 'angular-animate'
 asset 'angular-messages'
 asset 'angular-mocks'
