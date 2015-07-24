@@ -1,0 +1,11 @@
+<div ng-repeat="lesson in object.paginate.lessons">
+  <div ng-if="lesson.episode_count > 0" class="col-xs-6 col-sm-6 col-md-4 card">
+    <h3>
+      <a ng-href="/lessons/{{ lesson.id }}/episodes/{{ lesson.start_episode_id }}">{{ lesson.name }}</a>
+      <span>Total: {{ lesson.episode_count }}</span>
+    </h3>
+    <a ng-href="/lessons/{{ lesson.id }}/episodes/{{ lesson.start_episode_id }}">
+      <div style="background: -webkit-linear-gradient(top, rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(); background-size: 100% 100%;"></div>
+    </a>
+  </div>
+</div>
