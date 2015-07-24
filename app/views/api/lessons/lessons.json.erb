@@ -1,20 +1,22 @@
-{
-  "lessons": [
-    <% @lessons.each_with_index do |lesson, index| %>
+<%=
+  lessons = @lessons.map do |lesson|
     {
-      "id": "<%= lesson.id %>",
-      "name": "<%= lesson.name %>",
-      "start_episode_id": <%= lesson.episodes.first.id %>,
-      "created_at": "<%= lesson.created_at %>",
-      "updateed_at": "<%= lesson.updated_at %>",
-      "episode_count": <%= lesson.episodes.count %>
+      id: lesson.id,
+      name: lesson.name,
+      start_episode_slug: lesson.episodes.first.slug,
+      created_at: lesson.created_at,
+      updated_at: lesson.updated_at,
+      episode_count: lesson.episodes.size,
+      slug: lesson.slug
     }
-    <%= "," unless index == @lessons.count - 1 %>
-    <% end %>
-  ],
-  "per_page": <%= @lessons.per_page %>,
-  "current": <%= @lessons.current_page %>,
-  "nextPage": <%= @lessons.next_page || "null" %>,
-  "prevPage": <%= @lessons.previous_page || "null" %>,
-  "totalPages": <%= @lessons.total_pages %>
-}
+  end
+  
+  {
+    lessons: lessons,
+    per_page: @lessons.per_page,
+    current: @lessons.current_page,
+    nextPage: @lessons.next_page,
+    prevPage: @lessons.previous_page,
+    totalPages: @lessons.total_pages
+  }.to_json.html_safe
+%>

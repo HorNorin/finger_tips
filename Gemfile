@@ -15,6 +15,7 @@ gem 'bootstrap-sass'
 gem 'bower-rails'
 gem 'carrierwave'
 gem 'will_paginate'
+gem 'friendly_id'
 gem 'bootstrap-will_paginate'
 gem 'font-awesome-rails'
 

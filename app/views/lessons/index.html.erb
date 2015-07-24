@@ -1,28 +1,30 @@
-<div id="episodes" class="row" ng-controller="LessonsController">
-  <div id="head">
-    <ul id="left">
-      <li><%= link_to "New", "#" %></li>
-      <li><%= link_to "New", "#" %></li>
-    </ul>
-    <div id="right">
-      <%= form_tag "#", class: "form-inline" do %>
-        <div class="form-group">
-          <div class="input-group">
-            <%= text_field_tag :name, params[:name], class: "form-control", placeholder: "Search", "ng-model" => "object.name" %>
-            <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+<div ng-controller="LessonsController">
+  <div id="episodes" class="row">
+    <div id="head">
+      <ul id="left">
+        <li><%= link_to "New", "#" %></li>
+        <li><%= link_to "New", "#" %></li>
+      </ul>
+      <div id="right">
+        <%= form_tag "#", class: "form-inline" do %>
+          <div class="form-group">
+            <div class="input-group">
+              <%= text_field_tag :name, params[:name], class: "form-control", placeholder: "Search", "ng-model" => "object.name" %>
+              <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+            </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
+    <div lesson-search="object.name"></div>
   </div>
-  <div lesson-search="object.name"></div>
-</div>
 
-<div ng-controller="LessonsController" ng-show="object.paginate.totalPages > 1">
-  <div class="pagination">
-    <ul class="pagination">
-      <li class="prev previous_page" ng-class="{ disabled : object.paginate.prevPage == null }"><a ng-click="goto(object.paginate.prevPage)">Previous</a></li>
-      <li class="next next_page" ng-class="{ disabled : object.paginate.nextPage == null }"><a ng-click="goto(object.paginate.nextPage)">Next</a></li>
-    </ul>
+  <div ng-show="object.paginate.totalPages > 1">
+    <div class="pagination">
+      <ul class="pagination">
+        <li class="prev previous_page" ng-class="{ disabled : object.paginate.prevPage == null }"><a ng-click="goto(object.paginate.prevPage)">Previous</a></li>
+        <li class="next next_page" ng-class="{ disabled : object.paginate.nextPage == null }"><a ng-click="goto(object.paginate.nextPage)">Next</a></li>
+      </ul>
+    </div>
   </div>
 </div>
