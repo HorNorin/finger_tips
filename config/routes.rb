@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  constraints subdomain: /admin/ do
+    namespace :admin, path: "/" do
+      root "episodes#index"
+      get "/login" => "sessions#new"
+      get "/logout" => "sessions#destroy"
+      post "/login" => "sessions#create", as: :session
+      resources :episodes, except: :show
+      resources :lessons, except: :show
+    end
+  end
+  
   root "home#index"
   
   get "/register" => "users#new"

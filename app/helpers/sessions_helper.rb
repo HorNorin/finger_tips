@@ -24,13 +24,29 @@ module SessionsHelper
   end
   
   def user_logged_in?
-    !current_user.nil?
+    current_user && current_user.normal?
+  end
+  
+  def admin_logged_in?
+    current_user && current_user.admin?
+  end
+  
+  def authenticated_admin!
+    flash[:error] = "Access denied!"
+    redirect_to root_path
   end
   
   def authenticated_user!
     unless user_logged_in?
       flash[:error] = "You need to login before you can continue."
       redirect_to root_path
+    end
+  end
+  
+  def access_denied
+    unless admin_logged_in?
+      flash[:error] = "Access denied!"
+      redirect_to root_url(subdomain: false)
     end
   end
 end

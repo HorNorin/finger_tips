@@ -1,0 +1,10 @@
+<tr>
+  <td><%= episode.id %></td>
+  <td><%= episode.title %></td>
+  <td><%= pluralize episode.duration, "Min" %></td>
+  <td><%= episode.lesson.name %></td>
+  <td>
+    <%= link_to "Edit", edit_admin_episode_path(episode) %> | 
+    <%= link_to "Delete", [:admin, episode], method: :delete, data: {confirm: "Are you sure?"} %>
+  </td>
+</tr>

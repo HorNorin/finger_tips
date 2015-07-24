@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   
   def create
     @user = User.find_by email: params[:email]
-    if @user && @user.authenticate(params[:password])
+    if @user && @user.authenticate(params[:password]) && @user.normal?
       if @user.account_activated?
         params[:remember_me] ? login_and_remember(@user) : login(@user)
         flash[:success] = "Welcome, #{@user.username}!"

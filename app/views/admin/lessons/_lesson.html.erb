@@ -1,0 +1,9 @@
+<tr>
+  <td><%= lesson.id %></td>
+  <td><%= lesson.name %></td>
+  <td><%= lesson.episodes.size %></td>
+  <td>
+    <%= link_to "Edit", edit_admin_lesson_path(lesson) %> | 
+    <%= link_to "Delete", [:admin, lesson], method: :delete, data: {confirm: "Are you sure?"} %>
+  </td>
+</tr>
