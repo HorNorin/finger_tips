@@ -1,0 +1,26 @@
+<%=
+  episodes = @episodes.map do |episode|
+    {
+      id: episode.id,
+      title: episode.title,
+      description: episode.description,
+      image: episode.image,
+      youtube_url: episode.youtube_url,
+      created_at: episode.created_at,
+      updated_at: episode.updated_at,
+      duration: episode.duration,
+      lesson_id: episode.lesson_id,
+      lesson_slug: episode.lesson.slug,
+      slug: episode.slug
+    }
+  end
+  
+  {
+    episodes: episodes,
+    per_page: @episodes.per_page,
+    current: @episodes.current_page,
+    nextPage: @episodes.next_page,
+    prevPage: @episodes.previous_page,
+    totalPages: @episodes.total_pages
+  }.to_json.html_safe
+%>

@@ -3,6 +3,7 @@ class EpisodesController < ApplicationController
   end
   
   def show
-    @episode = Episode.find params[:id]
+    lesson = Lesson.friendly.find params[:lesson_id]
+    @episode = lesson.episodes.friendly.find(params[:id])
   end
 end

@@ -1,4 +1,7 @@
 class Episode < ActiveRecord::Base
-  belongs_to :lesson
+  extend FriendlyId
+  friendly_id :title, use: :slugged
+  
   has_many :comments
+  belongs_to :lesson, counter_cache: true
 end

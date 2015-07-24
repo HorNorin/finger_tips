@@ -12,9 +12,9 @@ User.create email: "norin@example.com",
             password_confirmation: "secret",
             account_activated: true
 
-5.times do |i|
+20.times do |i|
   lesson = Lesson.create name: "Lesson ##{i+1}"
-  50.times do |i|
+  20.times do |i|
     Episode.create title: "Episode ##{i+1}", lesson: lesson,
                    description: "Episode ##{i+1}'s description",
                    youtube_url: "https://www.youtube.com/embed/xLWJVnqgDGA?controls=1&amp;showinfo=0"
