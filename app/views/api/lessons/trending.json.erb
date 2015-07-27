@@ -1,0 +1,19 @@
+<%=
+  lessons = @lessons.map do |lesson|
+    hash = {
+      episode_count: lesson.episodes.size,
+      start_episode: lesson.episodes.first
+    }
+    
+    lesson.as_json.merge hash
+  end
+  
+  {
+    lessons: lessons,
+    per_page: nil,
+    current: nil,
+    nextPage: nil,
+    prevPage: nil,
+    totalPages: nil
+  }.to_json.html_safe
+%>

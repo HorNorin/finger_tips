@@ -4,6 +4,11 @@ class Api::EpisodesController < ApplicationController
     render file: "api/episodes/episodes.json.erb", content_type: "application/json"
   end
   
+  def trending
+    @episodes = Episode.order("created_at DESC").limit(12)
+    render file: "api/episodes/trending.json.erb", content_type: "application/json"
+  end
+  
   def search
     if params[:title].blank?
       render json: nil

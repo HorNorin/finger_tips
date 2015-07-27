@@ -12,8 +12,8 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><%= link_to "Lessons", lessons_path %></li>
-        <li><%= link_to "Series", episodes_path %></li>
+        <%= active_link_to "Lessons", lessons_path, :wrap_tag => :li %>
+        <%= active_link_to "Series", episodes_path, :wrap_tag => :li %>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if user_logged_in? %>
@@ -26,8 +26,8 @@
             </ul>
           </li>
         <% else %>
-          <li><%= link_to "Login", login_path %></li>
-          <li><%= link_to "Register", register_path %></li>
+          <%= active_link_to "Login", login_path, :wrap_tag => :li %>
+          <%= active_link_to "Register", register_path, :wrap_tag => :li %>
         <% end %>
       </ul>
     </div>

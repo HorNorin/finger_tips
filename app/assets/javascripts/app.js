@@ -16,15 +16,17 @@ app.service("uniqueValidationService", function($http, $q) {
 
 app.factory("Lesson", function($resource) {
   return $resource("/api/lessons/:id", {name: "@name", page: "@page"}, {
-    search: {method: "GET", url: "/api/lessons/search"},
-    index: {method: "GET"}
+    index: {method: "GET"},
+    trending: {method: "GET", url: "/api/lessons/trending"},
+    search: {method: "GET", url: "/api/lessons/search"}
   });
 });
 
 app.factory("Episode", function($resource) {
   return $resource("/api/episodes/:id", {title: "@title", page: "@page"}, {
-    search: {method: "GET", url: "/api/episodes/search"},
-    index: {method: "GET"}
+    index: {method: "GET"},
+    trending: {method: "GET", url: "/api/episodes/trending"},
+    search: {method: "GET", url: "/api/episodes/search"}
   });
 });
 
@@ -83,8 +85,9 @@ app.controller("HomeController", function($scope, $interval) {
 app.animation(".slide-animation", function() {
   return {
     beforeAddClass: function(element, clasName, done) {
-      if (clasName === "ng-hide") { 
-        TweenLite.fromTo(element, 1, {opacity: 1}, {opacity: 0, onComplete: done});
+      if (clasName === "ng-hide") {
+        var start = element.parent().width();
+        TweenLite.to(element, 0.5, {left: start, onComplete: done});
       } else {
         done();
       }
@@ -92,8 +95,9 @@ app.animation(".slide-animation", function() {
     removeClass: function(element, clasName, done) {
       var scope = element.scope();
       if (clasName === "ng-hide") {
+        var start = element.parent().width();
         element.removeClass("ng-hide"); 
-        TweenLite.fromTo(element, 1, {opacity: 0}, {opacity: 1, onComplete: done});
+        TweenLite.fromTo(element, 0.5, {left: -start}, {left: 0, onComplete: done});
       } else {
         done();
       }
@@ -103,11 +107,6 @@ app.animation(".slide-animation", function() {
 
 app.controller("EpisodesController", function($scope, sharedScope, Episode) {
   $scope.object = sharedScope.data;
-  
-  Episode.index({}, function(object) {
-    $scope.object.paginate = object;
-    $scope.object.searchMode = false;
-  });
   
   $scope.goto = function(page) {
     if ($scope.object.searchMode) {
@@ -120,15 +119,29 @@ app.controller("EpisodesController", function($scope, sharedScope, Episode) {
       });
     }
   }
+  
+  $scope.all = function() {
+    Episode.index({}, function(object) {
+      $scope.object.paginate = object;
+      $scope.object.searchMode = false;
+      $scope.isAll = true;
+    });
+  }
+  
+  $scope.trending = function() {
+    Episode.trending({}, function(object) {
+      $scope.object.paginate = object;
+      $scope.object.searchMode = false;
+      $scope.isAll = false;
+    });
+  }
+  
+  $scope.all();
 });
 
 app.controller("LessonsController", function($scope, sharedScope, Lesson) {
   $scope.object = sharedScope.data;
   
-  Lesson.index({}, function(object) {
-    $scope.object.paginate = object;
-    $scope.object.searchMode = false;
-  });
   
   $scope.goto = function(page) {
     if ($scope.object.searchMode) {
@@ -141,6 +154,24 @@ app.controller("LessonsController", function($scope, sharedScope, Lesson) {
       });
     }
   }
+  
+  $scope.all = function() {
+    Lesson.index({}, function(object) {
+      $scope.object.paginate = object;
+      $scope.object.searchMode = false;
+      $scope.isAll = true;
+    });
+  }
+  
+  $scope.trending = function() {
+    Lesson.trending({}, function(object) {
+      $scope.object.paginate = object;
+      $scope.object.searchMode = false;
+      $scope.isAll = false;
+    });
+  }
+  
+  $scope.all();
 });
 
 app.directive("account", function() {
