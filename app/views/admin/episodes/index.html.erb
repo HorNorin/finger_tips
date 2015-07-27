@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-xs-12">
+    <div class="row">
+      <div class="col-xs-3 col-xs-push-9">
+        <%= link_to "New Episode", new_admin_episode_path, class: "btn btn-danger pull-right" %>
+      </div>
+    </div>
+    
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Title</th>
+          <th>Duration</th>
+          <th>Lesson</th>
+          <th>Setting</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render @episodes %>
+      </tbody>
+    </table>
+    
+    <%= will_paginate @episodes %>
+  </div>
+</div>

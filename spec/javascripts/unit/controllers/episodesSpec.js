@@ -1,4 +1,4 @@
-describe("Controllers: HomeController", function() {
+describe("Controllers: EpisodesController", function() {
   var scope, shared, episode, controller, httpBackend;
   
   beforeEach(module("App"));
@@ -12,7 +12,7 @@ describe("Controllers: HomeController", function() {
     var element = angular.element("<input name='title' ng-model='object.title'>");
     $compile(element)(scope);
     
-    controller = $controller("HomeController", {
+    controller = $controller("EpisodesController", {
       $scope: scope,
       sharedScope: sharedScope,
       Episode: Episode

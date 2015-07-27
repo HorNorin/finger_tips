@@ -1,14 +1,11 @@
 <%=
   lessons = @lessons.map do |lesson|
-    {
-      id: lesson.id,
-      name: lesson.name,
-      start_episode_slug: lesson.episodes.first.slug,
-      created_at: lesson.created_at,
-      updated_at: lesson.updated_at,
+    hash = {
       episode_count: lesson.episodes.size,
-      slug: lesson.slug
+      start_episode: lesson.episodes.first
     }
+    
+    lesson.as_json.merge hash
   end
   
   {

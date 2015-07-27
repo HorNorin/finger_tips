@@ -1,0 +1,30 @@
+<div ng-controller="EpisodesController">
+  <div id="episodes" class="row">
+    <div id="head">
+      <ul id="left">
+        <li><%= link_to "New", "#" %></li>
+        <li><%= link_to "New", "#" %></li>
+      </ul>
+      <div id="right">
+        <%= form_tag "#", class: "form-inline" do %>
+          <div class="form-group">
+            <div class="input-group">
+              <%= text_field_tag :title, params[:title], class: "form-control", placeholder: "Search", "ng-model" => "object.title" %>
+              <div class="input-group-addon"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div episode-search="object.title"></div>
+  </div>
+
+  <div ng-show="object.paginate.totalPages > 1">
+    <div class="pagination">
+      <ul class="pagination">
+        <li class="prev previous_page" ng-class="{ disabled : object.paginate.prevPage == null }"><a ng-click="goto(object.paginate.prevPage)">Previous</a></li>
+        <li class="next next_page" ng-class="{ disabled : object.paginate.nextPage == null }"><a ng-click="goto(object.paginate.nextPage)">Next</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

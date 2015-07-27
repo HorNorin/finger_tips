@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
+  before_action :redirect_to_admin
   after_filter :set_csrf_cookie_for_ng
 
   def set_csrf_cookie_for_ng
@@ -13,7 +14,15 @@ class ApplicationController < ActionController::Base
   
   protected
 
-    def verified_request?
-      super || valid_authenticity_token?(session, request.headers['X-XSRF-TOKEN'])
+  def verified_request?
+    super || valid_authenticity_token?(session, request.headers['X-XSRF-TOKEN'])
+  end
+    
+  private
+  
+  def redirect_to_admin
+    if admin_logged_in? && request.subdomain != "admin"
+      redirect_to admin_root_url(subdomain: :admin)
     end
+  end
 end

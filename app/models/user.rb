@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   
   has_many :comments
   
+  enum role: [:normal, :admin]
+  
   mount_uploader :avatar, AvatarUploader
   
   before_save :encrypt_password, if: :new_record_or_passwod_present?

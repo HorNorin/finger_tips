@@ -44,7 +44,64 @@ app.factory("sharedScope", function($rootScope) {
   return scope;
 });
 
-app.controller("HomeController", function($scope, sharedScope, Episode) {
+app.controller("HomeController", function($scope, $interval) {
+  $scope.lessons = [
+    "Lesson #1",
+    "aaaaaaaaaaaaa",
+    "bbbbbbbbbbbbbbbb",
+    "cccccccccccccccccccccc",
+    "ddddddddddddddddddddddddddd"
+  ];
+  
+  $scope.currentIndex = 0;
+  
+  $scope.isCurrentIndex = function(index) {
+    return $scope.currentIndex === index;
+  }
+  
+  $scope.nextImage = function() {
+    if ($scope.currentIndex == $scope.lessons.length - 1) {
+      $scope.currentIndex = 0;
+    } else {
+      ++$scope.currentIndex;
+    }
+  }
+  
+  $scope.interval = $interval($scope.nextImage, 3000);
+  
+  $scope.pause = function() {
+    if ($scope.interval) $interval.cancel($scope.interval);
+    console.log("pause");
+  }
+  
+  $scope.resume = function() {
+    $scope.interval = $interval($scope.nextImage, 3000);
+    console.log("resume");
+  }
+});
+
+app.animation(".slide-animation", function() {
+  return {
+    beforeAddClass: function(element, clasName, done) {
+      if (clasName === "ng-hide") { 
+        TweenLite.fromTo(element, 1, {opacity: 1}, {opacity: 0, onComplete: done});
+      } else {
+        done();
+      }
+    },
+    removeClass: function(element, clasName, done) {
+      var scope = element.scope();
+      if (clasName === "ng-hide") {
+        element.removeClass("ng-hide"); 
+        TweenLite.fromTo(element, 1, {opacity: 0}, {opacity: 1, onComplete: done});
+      } else {
+        done();
+      }
+    }
+  }
+});
+
+app.controller("EpisodesController", function($scope, sharedScope, Episode) {
   $scope.object = sharedScope.data;
   
   Episode.index({}, function(object) {
