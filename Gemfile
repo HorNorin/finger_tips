@@ -18,6 +18,7 @@ gem 'will_paginate'
 gem 'friendly_id'
 gem 'bootstrap-will_paginate'
 gem 'font-awesome-rails'
+gem 'active_link_to'
 
 group :development, :test do
   gem 'byebug'

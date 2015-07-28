@@ -1,15 +1,23 @@
-<style>
-  .test {
-    position: absolute;
-  }
-</style>
-
-<div class="col-md-12" ng-controller="HomeController">
-  <h2 ng-repeat="lesson in lessons" ng-hide="!isCurrentIndex($index)"
-  class="test slide-animation" ng-mouseenter="pause()" ng-mouseleave="resume()">{{ lesson }}<h2>
+<div class="row">
+  <div id="slider-container" class="col-xs-12" ng-controller="HomeController">
+    <div id="slider">
+      <a ng-href="#" ng-repeat="lesson in lessons" ng-hide="!isCurrentIndex($index)" class="slide slide-animation">
+        <img ng-src="/default.png" alt="{{ lesson.name }}" ng-mouseenter="pause()" ng-mouseleave="resume()" class="slide">
+      </a>
+    </div>
+  </div>
 </div>
 
-<script>
-  var div = $("#main");
-  TweenLite.to(div, 2, {left: "1000px"});
-</script>
+<div id="sidebar" class="row">
+  <div class="col-xs-12 col-md-6 summary">
+    <h3>Summary</h3>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, facere? Modi, delectus voluptate, veritatis minima exercitationem molestias error soluta iusto architecto, dolores ratione quisquam sed commodi est. Amet, repellat, vitae!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero alias, autem doloremque quia impedit expedita asperiores quis, incidunt, recusandae saepe totam error et officia est! Delectus voluptatum sequi molestias itaque?
+  </div>
+  
+  <div class="col-xs-12 col-md-6 about-me">
+    <h3>About Me</h3>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad, facere? Modi, delectus voluptate, veritatis minima exercitationem molestias error soluta iusto architecto, dolores ratione quisquam sed commodi est. Amet, repellat, vitae!
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero alias, autem doloremque quia impedit expedita asperiores quis, incidunt, recusandae saepe totam error et officia est! Delectus voluptatum sequi molestias itaque?
+  </div>
+</div>

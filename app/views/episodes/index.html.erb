@@ -2,8 +2,8 @@
   <div id="episodes" class="row">
     <div id="head">
       <ul id="left">
-        <li><%= link_to "New", "#" %></li>
-        <li><%= link_to "New", "#" %></li>
+        <li ng-class="{active : isAll}"><a ng-click="all()">All</a></li>
+        <li ng-class="{active : !isAll}"><a ng-click="trending()">Trending</a></li>
       </ul>
       <div id="right">
         <%= form_tag "#", class: "form-inline" do %>

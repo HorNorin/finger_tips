@@ -38,10 +38,12 @@ Rails.application.routes.draw do
     
     resources :lessons, only: :index do
       get "search" => "lessons#search", on: :collection
+      get "trending" => "lessons#trending", on: :collection
     end
     
     resources :episodes, only: :index do
       get "search" => "episodes#search", on: :collection
+      get "trending" => "episodes#trending", on: :collection
     end
   end
 end
