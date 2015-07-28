@@ -26,6 +26,11 @@ RSpec.configure do |config|
   
   config.include SessionsHelper, type: :controller
   
+  config.before(:each, type: :feature) do
+    default_url_options[:host] = "lvh.me"
+    Capybara.app_host = "http://lvh.me"
+  end
+  
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods

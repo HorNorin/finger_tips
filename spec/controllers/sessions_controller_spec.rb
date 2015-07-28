@@ -49,7 +49,7 @@ RSpec.describe SessionsController, type: :controller do
         
         it "should have user id in session" do
           post :create, {email: "norin@example.com", password: "secret"}
-          expect(session[:user_id]).to eq(@user.id)
+          expect(session[:user_slug]).to eq(@user.slug)
         end
       end
       

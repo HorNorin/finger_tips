@@ -5,9 +5,6 @@ class Admin::LessonsController < Admin::AdminController
     @lessons = Lesson.paginate(page: params[:page], per_page: 12).order("created_at DESC")
   end
   
-  def show
-  end
-  
   def new
     @lesson = Lesson.new
   end

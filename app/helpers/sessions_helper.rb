@@ -1,25 +1,25 @@
 module SessionsHelper
   def login(user)
-    session[:user_id] = user.id
+    session[:user_slug] = user.slug
   end
   
   def login_and_remember(user)
-    cookies.permanent.signed[:user_id] = user.id
+    cookies.permanent.signed[:user_slug] = user.slug
   end
   
   def logout
-    if session[:user_id]
-      session[:user_id] = nil
-    elsif cookies.signed[:user_id]
-      cookies.delete :user_id
+    if session[:user_slug]
+      session[:user_slug] = nil
+    elsif cookies.signed[:user_slug]
+      cookies.delete :user_slug
     end
   end
   
   def current_user
-    if session[:user_id]
-      User.find session[:user_id] if session[:user_id]
-    elsif cookies[:user_id]
-      User.find cookies.signed[:user_id]
+    if session[:user_slug]
+      User.friendly.find session[:user_slug] if session[:user_slug]
+    elsif cookies[:user_slug]
+      User.friendly.find cookies.signed[:user_slug]
     end
   end
   
@@ -29,6 +29,12 @@ module SessionsHelper
   
   def admin_logged_in?
     current_user && current_user.admin?
+  end
+  
+  def redirect_back_or(path)
+    back = session[:back]
+    session[:back] = nil
+    redirect_to back || path
   end
   
   def authenticated_admin!

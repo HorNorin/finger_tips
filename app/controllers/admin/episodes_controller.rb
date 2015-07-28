@@ -5,9 +5,6 @@ class Admin::EpisodesController < Admin::AdminController
     @episodes = Episode.includes(:lesson).paginate(page: params[:page], per_page: 12).order("created_at DESC")
   end
   
-  def show
-  end
-  
   def new
     @episode = Episode.new
   end
