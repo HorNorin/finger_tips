@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require angular/angular
+//= require angular-translate/angular-translate
 //= require ng-timeago/ngtimeago
 //= require angular-animate/angular-animate
 //= require angular-resource/angular-resource

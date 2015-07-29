@@ -1,0 +1,51 @@
+en:
+  header:
+    login: "Login"
+    logout: "Logout"
+    series: "Series"
+    account: "Account"
+    lessons: "Lessons"
+    logo: "FingerTips"
+    register: "Register"
+  lessons:
+    index:
+      all: "All"
+      next: "Next"
+      prev: "Previous"
+      search: "Search"
+      trending: "Trending"
+  episodes:
+    index:
+      all: "All"
+      next: "Next"
+      prev: "Previous"
+      search: "Search"
+      trending: "Trending"
+    show:
+      published: "Published at"
+  sessions:
+    new:
+      title: "Login to Fingertips"
+      email: "Email"
+      password: "Password"
+      remember: "Remember me"
+      submit: "Login"
+      forget: "Forgot your password?"
+  users:
+    new:
+      title: "Registration"
+      email: "Email"
+      password: "Password"
+      password_confirmation: "Password confirmation"
+      username: "Username"
+      submit: "Register"
+      errors:
+        required: "Required"
+        short: "Too short (5)"
+        long: "Too long (25)"
+        format: "Invalid"
+        exists: "Exists"
+        not_match: "Not match"
+  footer:
+    about: "About Us"
+    contact: "Contact Us"

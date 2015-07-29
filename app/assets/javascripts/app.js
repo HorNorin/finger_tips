@@ -1,4 +1,18 @@
-var app = angular.module("App", ["ngMessages", "ngResource", "ngAnimate", "ngtimeago"]);
+var app = angular.module("App", ["ngMessages", "ngResource", "ngAnimate", "ngtimeago", "pascalprecht.translate"]);
+
+app.config(function($translateProvider) {
+  $translateProvider.translations("en", {
+    "commentButtonLabel": "Submit",
+    "commentTitle": "Comments"
+  });
+  
+  $translateProvider.translations("kh", {
+    "commentButtonLabel": "បញ្ជូន",
+    "commentTitle": "មតិយោបល់"
+  });
+  
+  $translateProvider.preferredLanguage($("html").attr("lang"));
+});
 
 app.service("uniqueValidationService", function($http, $q) {
   this.isUnique = function(value, validateUrl) {
@@ -15,28 +29,50 @@ app.service("uniqueValidationService", function($http, $q) {
 });
 
 app.factory("Lesson", function($resource) {
-  return $resource("/api/lessons/:id", {name: "@name", page: "@page"}, {
+  return $resource("/:locale/api/lessons/:id", {
+    name: "@name",
+    page: "@page",
+    locale: function() {
+      return $("html").attr("lang");
+    }
+  }, {
     index: {method: "GET"},
-    trending: {method: "GET", url: "/api/lessons/trending"},
-    search: {method: "GET", url: "/api/lessons/search"}
+    trending: {method: "GET", url: "/:locale/api/lessons/trending"},
+    search: {method: "GET", url: "/:locale/api/lessons/search"}
   });
 });
 
 app.factory("Episode", function($resource) {
-  return $resource("/api/episodes/:id", {title: "@title", page: "@page"}, {
+  return $resource("/:locale/api/episodes/:id", {
+    title: "@title",
+    page: "@page",
+    locale: function() {
+      return $("html").attr("lang");
+    }
+  }, {
     index: {method: "GET"},
-    trending: {method: "GET", url: "/api/episodes/trending"},
-    search: {method: "GET", url: "/api/episodes/search"}
+    trending: {method: "GET", url: "/:locale/api/episodes/trending"},
+    search: {method: "GET", url: "/:locale/api/episodes/search"}
   });
 });
 
 app.factory("Comment", function($resource) {
-  return $resource("/api/comments/:id", {id: "@id"});
+  return $resource("/:locale/api/comments/:id", {
+    id: "@id",
+    locale: function() {
+      return $("html").attr("lang");
+    }
+  });
 });
 
 app.factory("User", function($resource) {
-  return $resource("/api/users/:id", {id: "@id"}, {
-    update: {method: "POST", url: "/api/users/update", isArray: false}
+  return $resource("/:locale/api/users/:id", {
+    id: "@id",
+    locale: function() {
+      return $("html").attr("lang");
+    }
+  }, {
+    update: {method: "POST", url: "/:locale/api/users/update", isArray: false}
   });
 });
 
@@ -73,12 +109,10 @@ app.controller("HomeController", function($scope, $interval) {
   
   $scope.pause = function() {
     if ($scope.interval) $interval.cancel($scope.interval);
-    console.log("pause");
   }
   
   $scope.resume = function() {
     $scope.interval = $interval($scope.nextImage, 3000);
-    console.log("resume");
   }
 });
 
@@ -142,7 +176,6 @@ app.controller("EpisodesController", function($scope, sharedScope, Episode) {
 app.controller("LessonsController", function($scope, sharedScope, Lesson) {
   $scope.object = sharedScope.data;
   
-  
   $scope.goto = function(page) {
     if ($scope.object.searchMode) {
       Lesson.search({name: $scope.object.name, page: page}, function(object) {
@@ -205,7 +238,7 @@ app.directive("commentArea", function() {
     isLoggedIn: "=loggedIn",
     episode: "=episode"
    },
-   controller: function($scope, Comment) {
+   controller: function($scope, $translate, Comment) {
     $scope.comment = {};
     $scope.comments = Comment.query({episode_id: $scope.episode});
     $scope.createComment = function() {
@@ -216,6 +249,9 @@ app.directive("commentArea", function() {
         $scope.comment = {};
       });
     }
+    
+    $scope.commentTitle = "commentTitle";
+    $scope.commentButtonLabel = "commentButtonLabel";
    }
   }
 });

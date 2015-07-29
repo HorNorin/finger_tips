@@ -8,7 +8,10 @@
     
     <div id="video-detail">
       <h2><%= @episode.title %></h2>
-      <label>Published on <%= @episode.created_at.strftime "%d, %b %Y" %></label>
+      <label>
+        <%= t("episodes.show.published") %> 
+        <%= l @episode.created_at, format: :short %>
+      </label>
       <p><%= @episode.description %></p>
     </div>
   </div>

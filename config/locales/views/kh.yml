@@ -1,0 +1,51 @@
+kh:
+  header:
+    login: "ចូលប្រើប្រាស់"
+    logout: "ចាកចេញ"
+    series: "ភាគ"
+    account: "គណនី"
+    lessons: "មេរៀន"
+    logo: "FingerTips"
+    register: "ចុះឈ្មោះ"
+  lessons:
+    index:
+      all: "ទាំងអស់"
+      next: "បន្ទាប់"
+      prev: "មុន"
+      search: "ស្វែងរក"
+      trending: "ថ្មីថ្មី"
+  episodes:
+    index:
+      all: "ទាំងអស់"
+      next: "បន្ទាប់"
+      prev: "មុន"
+      search: "ស្វែងរក"
+      trending: "ថ្មីថ្មី"
+    show:
+      published: "ធ្វីឡើងនូវ"
+  sessions:
+    new:
+      title: "ចូលប្រើប្រាស់"
+      email: "អ៊ីម៉ែល"
+      password: "លេខសម្ងាត់"
+      remember: "ចងចាំ"
+      submit: "ចូលប្រើប្រាស់"
+      forget: "ភ្លេចលេខសម្ងាត់?"
+  users:
+    new:
+      title: "ចុះឈ្មោះប្រើប្រាស់"
+      email: "អ៊ីម៉ែល"
+      password: "លេខសម្ងាត់"
+      password_confirmation: "បញ្ជាក់ លេខសម្ងាត់"
+      username: "ឈ្មោះអ្នកប្រើប្រាស់"
+      submit: "ចុះឈ្មោះ"
+      errors:
+        required: "តំរូវអោយមាន"
+        short: "ខ្លីពេក (៥)"
+        long: "វែងពេក (២៥)"
+        format: "មឹនត្រឹមត្រូវ"
+        exists: "មានរួចហើយ"
+        not_match: "មិនដូចគ្នា"
+  footer:
+    about: "ស្វែងយល់"
+    contact: "ទាក់ទំនង"

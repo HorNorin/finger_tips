@@ -1,47 +1,47 @@
 <div class="row form-container">
   <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
-    <h2>Registration</h2>
+    <h2><%= t("users.new.title") %></h2>
 
     <%= form_for @user, html: { class: "form", novalidate: true, name: "form" } do |f| %>
       <%= render "shared/error_messages", object: f.object %>
       <div class="form-group">
-        <%= f.label :email %>
+        <%= f.label :email, t("users.new.email") %>
         <span ng-messages="form['user[email]'].$error" ng-if="form['user[email]'].$dirty || form['user[email]'].$touched" class="error-messages">
-          <span ng-message="required">Required</span>
-          <span ng-message="email">Invalid</span>
-          <span ng-message="unique">Exists</span>
+          <span ng-message="required"><%= t("users.new.errors.required") %></span>
+          <span ng-message="email"><%= t("users.new.errors.format") %></span>
+          <span ng-message="unique"><%= t("users.new.errors.exists") %></span>
         </span>
         <%= f.email_field :email, class: "form-control", required: true, email: true, "ng-model" => "user.email", unique: "email", url: "/api/users/validate", "ng-class" => "(form['user[email]'].$invalid && form['user[email]'].$touched) ? 'field_with_errors' : ''", autofocus: true %>
       </div>
       
       <div class="form-group">
-        <%= f.label :username %>
+        <%= f.label :username, t("users.new.username") %>
         <span ng-messages="form['user[username]'].$error" ng-if="form['user[username]'].$dirty || form['user[username]'].$touched" class="error-messages">
-          <span ng-message="required">Required</span>
-          <span ng-message="minlength">Too short(5)</span>
-          <span ng-message="maxlength">Too long(25)</span>
+          <span ng-message="required"><%= t("users.new.errors.required") %></span>
+          <span ng-message="minlength"><%= t("users.new.errors.short") %></span>
+          <span ng-message="maxlength"><%= t("users.new.errors.long") %></span>
         </span>
         <%= f.text_field :username, class: "form-control", required: true, "ng-minlength" => "5", "ng-maxlength" => "25", "ng-model" => "user.username", "ng-class" => "(form['user[username]'].$invalid && form['user[username]'].$touched) ? 'field_with_errors' : ''" %>
       </div>
       
       <div class="form-group">
-        <%= f.label :password %>
+        <%= f.label :password, t("users.new.password") %>
         <span ng-messages="form['user[password]'].$error" ng-if="form['user[password]'].$dirty || form['user[password]'].$touched" class="error-messages">
-          <span ng-message="required">Required</span>
+          <span ng-message="required"><%= t("users.new.errors.required") %></span>
         </span>
         <%= f.password_field :password, class: "form-control", "ng-model" => "user.password", required: true, "ng-class" => "(form['user[password]'].$invalid && form['user[password]'].$touched) ? 'field_with_errors' : ''" %>
       </div>
       
       <div class="form-group">
-        <%= f.label :password_confirmation %>
+        <%= f.label :password_confirmation, t("users.new.password_confirmation") %>
         <span ng-messages="form['user[password_confirmation]'].$error" class="error-messages">
-          <span ng-message="passwordConfirm">Not match</span>
+          <span ng-message="passwordConfirm"><%= t("users.new.errors.not_match") %></span>
         </span>
         <%= f.password_field :password_confirmation, class: "form-control", "ng-model" => "user.passwordConfirm", "password-confirm" => "user.password", "ng-class" => "form['user[password_confirmation]'].$invalid ? 'field_with_errors' : ''" %>
       </div>
       
       <div class="form-group">
-        <%= f.submit "Register", class: "btn btn-danger form-control", "ng-disabled" => "form.$invalid" %>
+        <%= f.submit t("users.new.submit"), class: "btn btn-danger form-control", "ng-disabled" => "form.$invalid" %>
       </div>
     <% end %>
 
