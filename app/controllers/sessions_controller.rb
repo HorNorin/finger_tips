@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   before_action :redirect_not_logged_in_user, only: :destroy
   
   def new
+    session[:back] = request.referer
   end
   
   def create
@@ -11,7 +12,7 @@ class SessionsController < ApplicationController
       if @user.account_activated?
         params[:remember_me] ? login_and_remember(@user) : login(@user)
         flash[:success] = "Welcome, #{@user.username}!"
-        redirect_to root_path
+        redirect_back_or root_path
       else
         flash.now[:error] = "You need to activate your account before you can login."
         render "new"

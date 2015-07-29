@@ -18,7 +18,7 @@ RSpec.feature "Home page", type: :feature do
   # end
   
   scenario "User has already logged in" do
-    visit login_path
+    visit login_url(subdomain: false)
     fill_in "Email", with: @user.email
     fill_in "Password", with: @user.password
     click_button "Login"

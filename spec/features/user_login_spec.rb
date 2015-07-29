@@ -20,6 +20,17 @@ RSpec.feature "User login", type: :feature do
     expect(page).to have_css("div.alert-success")
   end
   
+  scenario "Redirect user back to where they was when login successful" do
+    visit lessons_path
+    click_link "Login"
+    
+    fill_in "Email", with: @user.email
+    fill_in "Password", with: @user.password
+    click_button "Login"
+    
+    expect(current_path).to eq(lessons_path)
+  end
+  
   scenario "User login with invalid credential" do
     visit login_path
     fill_in "Email", with: "invalid@email.com"

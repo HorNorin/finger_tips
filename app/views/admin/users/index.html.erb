@@ -1,0 +1,23 @@
+<div class="row">
+  <div id="episodes" class="col-xs-12">
+    <% if @users.any? %>      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Setting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @users %>
+        </tbody>
+      </table>
+      
+      <%= will_paginate @users %>
+    <% else %>
+      <div class="alert alert-info">No result was found!</div>
+    <% end %>
+  </div>
+</div>

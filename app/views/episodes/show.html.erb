@@ -20,7 +20,7 @@
         <% lesson.episodes.each_with_index do |related_episode, index| %>
           <tr class="episode-outline">
             <td class="index"><%= index + 1 %></td>
-            <td class="title"><%= related_episode.title.capitalize %></td>
+            <td class="title"><%= link_to related_episode.title.capitalize, [lesson, related_episode] %></td>
             <td class="duration"><%= related_episode.duration %></td>
           </tr>
         <% end %>

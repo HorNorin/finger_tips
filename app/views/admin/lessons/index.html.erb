@@ -1,26 +1,29 @@
 <div class="row">
   <div class="col-xs-12">
-    <div class="row">
-      <div class="col-xs-3 col-xs-push-9">
-        <%= link_to "New Lesson", new_admin_lesson_path, class: "btn btn-danger pull-right" %>
+    <% if @lessons.any? %>
+      <div class="row">
+        <div class="col-xs-3 col-xs-push-9">
+          <%= link_to "New Lesson", new_admin_lesson_path, class: "btn btn-danger pull-right" %>
+        </div>
       </div>
-    </div>
-    <hr />
-    
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Total episodes</th>
-          <th>Setting</th>
-        </tr>
-      </thead>
-      <tbody>
-        <%= render @lessons %>
-      </tbody>
-    </table>
-    
-    <%= will_paginate @lessons %>
+      
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Total episodes</th>
+            <th>Setting</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= render @lessons %>
+        </tbody>
+      </table>
+      
+      <%= will_paginate @lessons %>
+    <% else %>
+      <div class="alert alert-info">No result was found!</div>
+    <% end %>
   </div>
 </div>

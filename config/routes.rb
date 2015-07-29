@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get "/login" => "sessions#new"
       get "/logout" => "sessions#destroy"
       post "/login" => "sessions#create", as: :session
+      resources :users, only: [:index, :destroy]
       resources :episodes, except: :show
       resources :lessons, except: :show
     end

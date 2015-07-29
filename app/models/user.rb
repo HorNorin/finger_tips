@@ -1,6 +1,9 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :username, use: :slugged
+  
   attr_accessor :password, :password_confirmation, :remember_me
   
   has_many :comments

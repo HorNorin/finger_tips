@@ -13,8 +13,9 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><%= link_to "Lessons", admin_lessons_path %></li>
-          <li><%= link_to "Episodes", admin_episodes_path %></li>
+          <li class="<%= request.path.include?('lessons') ? 'active' : '' %>"><%= link_to "Lessons", admin_lessons_path %></li>
+          <li class="<%= request.path.include?('episodes') ? 'active' : '' %>"><%= link_to "Episodes", admin_episodes_path %></li>
+          <li class="<%= request.path.include?('users') ? 'active' : '' %>"><%= link_to "Users", admin_users_path %></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
