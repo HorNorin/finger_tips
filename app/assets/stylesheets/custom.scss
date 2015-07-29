@@ -2,18 +2,13 @@
 @import "bootstrap";
 
 @font-face {
-  font-family: "Sans Thirteen";
-  src: url("/assets/SansThirteenBlack.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
+  font-family: "Hanuman";
+  src: url("/assets/Hanuman.ttf") format("truetype");
 }
 
 body {
   font-size: 14px;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Sans Thirteen";
+  font-family: "Hanuman" Helvetica, Arial, sans-serif;
 }
 
 a[ng-click] {
@@ -28,10 +23,10 @@ a[ng-click] {
 
 #logo {
   color: #A7B3C2;
+  font-weight: bold;
+  line-height: -.1em;
   text-transform: lowercase;
-  font-family: "Sans Thirteen";
   font-size: 1.714285714em; // 24px / 14px
-  letter-spacing: 1.5px;
   transition: .2s all;
   &:hover {
     color: #F9604C;
@@ -85,7 +80,6 @@ a[ng-click] {
     margin: 0;
     padding: 0;
     font-size: 11px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     a {
       top: 5px;
       left: 20px;
@@ -234,9 +228,15 @@ a[ng-click] {
   }
   .left {
     float: left;
+    .facebook a {
+      color: #3b5998;
+    }
+    .twitter a {
+      color: #00aced;
+    }
     li {
       float: left;
-      padding-right: 10px;
+      font-size: 18px;
       &:last-child {
         padding-right: 0;
         padding-left: 10px;
@@ -422,6 +422,7 @@ div.pagination {
   float: right;
   text-align: right;
   color: #F9604C;
+  font-style: italic;
 }
 
 .field_with_errors {

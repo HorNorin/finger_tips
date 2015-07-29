@@ -1,0 +1,95 @@
+en:
+  header:
+    login: "Login"
+    users: "Users"
+    username: "%{username}"
+    logout: "Logout"
+    series: "Series"
+    account: "Account"
+    lessons: "Lessons"
+    logo: "FingerTips"
+    register: "Register"
+  lessons:
+    index:
+      all: "All"
+      next: "Next"
+      prev: "Previous"
+      search: "Search"
+      trending: "Trending"
+      new_button: "New Lesson"
+      table:
+        name: "Name"
+        total: "Total Episodes"
+        setting: "Setting"
+        link:
+          edit: "Edit"
+          delete: "Delete"
+    new:
+  episodes:
+    index:
+      all: "All"
+      next: "Next"
+      prev: "Previous"
+      search: "Search"
+      trending: "Trending"
+      new_button: "New Episode"
+      table:
+        title: "Title"
+        duration: "Duration"
+        lesson: "Lesson"
+        setting: "Setting"
+        link:
+          edit: "Edit"
+          delete: "Delete"
+    show:
+      published: "Published at"
+  sessions:
+    new:
+      title: "Login to Fingertips"
+      email: "Email"
+      password: "Password"
+      remember: "Remember me"
+      submit: "Login"
+      forget: "Forgot your password?"
+  users:
+    index:
+      table:
+        username: "Username"
+        email: "Email"
+        setting: "Setting"
+        link:
+          delete: "Delete"
+    new:
+      title: "Registration"
+      email: "Email"
+      password: "Password"
+      password_confirmation: "Password confirmation"
+      username: "Username"
+      submit: "Register"
+      errors:
+        required: "Required"
+        short: "Too short (5)"
+        long: "Too long (25)"
+        format: "Invalid"
+        exists: "Exists"
+        not_match: "Not match"
+  about:
+    title: "About Us"
+  contact:
+    title: "Contact Us"
+  footer:
+    about: "About Us"
+    contact: "Contact Us"
+  will_paginate:
+    previous_label: "Previous"
+    next_label: "Next"
+  flash:
+    sessions:
+      login:
+        success: "Welcome, %{username}!"
+        activate_error: "Account not activated"
+        error: "Invalid email or password"
+        logged_in_error: "You are already logged in"
+      logout:
+        success: "Goodbye"
+        error: "Please login first!"

@@ -1,6 +1,26 @@
-var app = angular.module("App", ["ngMessages", "ngResource", "ngAnimate", "ngtimeago"]);
+var app = angular.module("App", [
+  "ngMessages",
+  "ngResource",
+  "ngAnimate",
+  "ngtimeago",
+  "pascalprecht.translate"
+]);
 
-app.service("uniqueValidationService", function($http, $q) {
+app.config(["$translateProvider", function($translateProvider) {
+  $translateProvider.translations("en", {
+    "commentButtonLabel": "Submit",
+    "commentTitle": "Comments"
+  });
+  
+  $translateProvider.translations("kh", {
+    "commentButtonLabel": "បញ្ជូន",
+    "commentTitle": "មតិយោបល់"
+  });
+  
+  $translateProvider.preferredLanguage($("html").attr("lang"));
+}]);
+
+app.service("uniqueValidationService", ["$http", "$q", function($http, $q) {
   this.isUnique = function(value, validateUrl) {
     var defer = $q.defer();
     
@@ -12,41 +32,63 @@ app.service("uniqueValidationService", function($http, $q) {
     
     return defer.promise;
   }
-});
+}]);
 
-app.factory("Lesson", function($resource) {
-  return $resource("/api/lessons/:id", {name: "@name", page: "@page"}, {
+app.factory("Lesson", ["$resource", function($resource) {
+  return $resource("/:locale/api/lessons/:id", {
+    name: "@name",
+    page: "@page",
+    locale: function() {
+      return $("html").attr("lang");
+    }
+  }, {
     index: {method: "GET"},
-    trending: {method: "GET", url: "/api/lessons/trending"},
-    search: {method: "GET", url: "/api/lessons/search"}
+    trending: {method: "GET", url: "/:locale/api/lessons/trending"},
+    search: {method: "GET", url: "/:locale/api/lessons/search"}
   });
-});
+}]);
 
-app.factory("Episode", function($resource) {
-  return $resource("/api/episodes/:id", {title: "@title", page: "@page"}, {
+app.factory("Episode", ["$resource", function($resource) {
+  return $resource("/:locale/api/episodes/:id", {
+    title: "@title",
+    page: "@page",
+    locale: function() {
+      return $("html").attr("lang");
+    }
+  }, {
     index: {method: "GET"},
-    trending: {method: "GET", url: "/api/episodes/trending"},
-    search: {method: "GET", url: "/api/episodes/search"}
+    trending: {method: "GET", url: "/:locale/api/episodes/trending"},
+    search: {method: "GET", url: "/:locale/api/episodes/search"}
   });
-});
+}]);
 
-app.factory("Comment", function($resource) {
-  return $resource("/api/comments/:id", {id: "@id"});
-});
-
-app.factory("User", function($resource) {
-  return $resource("/api/users/:id", {id: "@id"}, {
-    update: {method: "POST", url: "/api/users/update", isArray: false}
+app.factory("Comment", ["$resource", function($resource) {
+  return $resource("/:locale/api/comments/:id", {
+    id: "@id",
+    locale: function() {
+      return $("html").attr("lang");
+    }
   });
-});
+}]);
 
-app.factory("sharedScope", function($rootScope) {
+app.factory("User", ["$resource", function($resource) {
+  return $resource("/:locale/api/users/:id", {
+    id: "@id",
+    locale: function() {
+      return $("html").attr("lang");
+    }
+  }, {
+    update: {method: "POST", url: "/:locale/api/users/update", isArray: false}
+  });
+}]);
+
+app.factory("sharedScope", ["$rootScope", function($rootScope) {
   var scope = $rootScope.$new(true);
   scope.data = {};
   return scope;
-});
+}]);
 
-app.controller("HomeController", function($scope, $interval) {
+app.controller("HomeController", ["$scope", "$interval", function($scope, $interval) {
   $scope.lessons = [
     "Lesson #1",
     "aaaaaaaaaaaaa",
@@ -73,14 +115,12 @@ app.controller("HomeController", function($scope, $interval) {
   
   $scope.pause = function() {
     if ($scope.interval) $interval.cancel($scope.interval);
-    console.log("pause");
   }
   
   $scope.resume = function() {
     $scope.interval = $interval($scope.nextImage, 3000);
-    console.log("resume");
   }
-});
+}]);
 
 app.animation(".slide-animation", function() {
   return {
@@ -105,74 +145,81 @@ app.animation(".slide-animation", function() {
   }
 });
 
-app.controller("EpisodesController", function($scope, sharedScope, Episode) {
-  $scope.object = sharedScope.data;
-  
-  $scope.goto = function(page) {
-    if ($scope.object.searchMode) {
-      Episode.search({title: $scope.object.title, page: page}, function(object) {
+app.controller("EpisodesController", [
+  "$scope",
+  "sharedScope",
+  "Episode",
+  function($scope, sharedScope, Episode) {
+    $scope.object = sharedScope.data;
+    
+    $scope.goto = function(page) {
+      if ($scope.object.searchMode) {
+        Episode.search({title: $scope.object.title, page: page}, function(object) {
+          $scope.object.paginate = object;
+        });
+      } else {
+        Episode.index({page: page}, function(object) {
+          $scope.object.paginate = object;
+        });
+      }
+    }
+    
+    $scope.all = function() {
+      Episode.index({}, function(object) {
         $scope.object.paginate = object;
-      });
-    } else {
-      Episode.index({page: page}, function(object) {
-        $scope.object.paginate = object;
+        $scope.object.searchMode = false;
+        $scope.isAll = true;
       });
     }
-  }
-  
-  $scope.all = function() {
-    Episode.index({}, function(object) {
-      $scope.object.paginate = object;
-      $scope.object.searchMode = false;
-      $scope.isAll = true;
-    });
-  }
-  
-  $scope.trending = function() {
-    Episode.trending({}, function(object) {
-      $scope.object.paginate = object;
-      $scope.object.searchMode = false;
-      $scope.isAll = false;
-    });
-  }
-  
-  $scope.all();
-});
+    
+    $scope.trending = function() {
+      Episode.trending({}, function(object) {
+        $scope.object.paginate = object;
+        $scope.object.searchMode = false;
+        $scope.isAll = false;
+      });
+    }
+    
+    $scope.all();
+}]);
 
-app.controller("LessonsController", function($scope, sharedScope, Lesson) {
-  $scope.object = sharedScope.data;
-  
-  
-  $scope.goto = function(page) {
-    if ($scope.object.searchMode) {
-      Lesson.search({name: $scope.object.name, page: page}, function(object) {
+app.controller("LessonsController", [
+  "$scope",
+  "sharedScope",
+  "Lesson",
+  function($scope, sharedScope, Lesson) {
+    $scope.object = sharedScope.data;
+    
+    $scope.goto = function(page) {
+      if ($scope.object.searchMode) {
+        Lesson.search({name: $scope.object.name, page: page}, function(object) {
+          $scope.object.paginate = object;
+        });
+      } else {
+        Lesson.index({page: page}, function(object) {
+          $scope.object.paginate = object;
+        });
+      }
+    }
+    
+    $scope.all = function() {
+      Lesson.index({}, function(object) {
         $scope.object.paginate = object;
-      });
-    } else {
-      Lesson.index({page: page}, function(object) {
-        $scope.object.paginate = object;
+        $scope.object.searchMode = false;
+        $scope.isAll = true;
       });
     }
-  }
-  
-  $scope.all = function() {
-    Lesson.index({}, function(object) {
-      $scope.object.paginate = object;
-      $scope.object.searchMode = false;
-      $scope.isAll = true;
-    });
-  }
-  
-  $scope.trending = function() {
-    Lesson.trending({}, function(object) {
-      $scope.object.paginate = object;
-      $scope.object.searchMode = false;
-      $scope.isAll = false;
-    });
-  }
-  
-  $scope.all();
-});
+    
+    $scope.trending = function() {
+      Lesson.trending({}, function(object) {
+        $scope.object.paginate = object;
+        $scope.object.searchMode = false;
+        $scope.isAll = false;
+      });
+    }
+    
+    $scope.all();
+}]);
 
 app.directive("account", function() {
   return {
@@ -182,7 +229,7 @@ app.directive("account", function() {
       emailAddress: "@emailAddress",
       username: "@"
     },
-    controller: function($scope, User) {
+    controller: ["$scope", "User", function($scope, User) {
       $scope.updateAccount = function() {
         User.update($scope.user, function(location) {
           window.location = location.path;
@@ -193,30 +240,33 @@ app.directive("account", function() {
         email: $scope.emailAddress,
         username: $scope.username
       };
-    }
+    }]
   }
 });
 
 app.directive("commentArea", function() {
   return {
-   restrict: "AE",
-   templateUrl: "/templates/directives/comment_area.html",
-   scope: {
-    isLoggedIn: "=loggedIn",
-    episode: "=episode"
-   },
-   controller: function($scope, Comment) {
-    $scope.comment = {};
-    $scope.comments = Comment.query({episode_id: $scope.episode});
-    $scope.createComment = function() {
-      $scope.comment.episode_id = $scope.episode;
-      var comment = new Comment({comment: $scope.comment});
-      Comment.save(comment, function(newComment) {
-        $scope.comments.unshift(newComment);
-        $scope.comment = {};
-      });
-    }
-   }
+    restrict: "AE",
+      templateUrl: "/templates/directives/comment_area.html",
+    scope: {
+      isLoggedIn: "=loggedIn",
+      episode: "=episode"
+    },
+    controller: ["$scope", "$translate", "Comment", function($scope, $translate, Comment) {
+      $scope.comment = {};
+      $scope.comments = Comment.query({episode_id: $scope.episode});
+      $scope.createComment = function() {
+        $scope.comment.episode_id = $scope.episode;
+        var comment = new Comment({comment: $scope.comment});
+        Comment.save(comment, function(newComment) {
+          $scope.comments.unshift(newComment);
+          $scope.comment = {};
+        });
+      }
+
+      $scope.commentTitle = "commentTitle";
+      $scope.commentButtonLabel = "commentButtonLabel";
+    }]
   }
 });
 
@@ -225,16 +275,16 @@ app.directive("timeAgo", function() {
     restrict: "AE",
     template: "{{ timeago }}",
     scope: { timeAgo: "=" },
-    controller: function($scope, $interval, $filter) {
+    controller: ["$scope", "$interval", "$filter", function($scope, $interval, $filter) {
       $scope.timeago = $filter("timeago")(new Date($scope.timeAgo));
       $interval(function() {
         $scope.timeago = $filter("timeago")(new Date($scope.timeAgo));
       }, 1000 * 60);
-    }
+    }]
   }
 });
 
-app.directive("episodeSearch", function(Episode, $timeout) {
+app.directive("episodeSearch", ["Episode", "$timeout", function(Episode, $timeout) {
   return {
     restrict: "AE",
     require: "?ngModel",
@@ -260,9 +310,9 @@ app.directive("episodeSearch", function(Episode, $timeout) {
       });
     }
   };
-});
+}]);
 
-app.directive("lessonSearch", function(Lesson, $timeout) {
+app.directive("lessonSearch", ["Lesson", "$timeout", function(Lesson, $timeout) {
   return {
     restrict: "AE",
     require: "?ngModel",
@@ -288,7 +338,7 @@ app.directive("lessonSearch", function(Lesson, $timeout) {
       });
     }
   };
-});
+}]);
 
 app.directive("passwordConfirm", function() {
   return {
@@ -327,26 +377,29 @@ app.directive("email", function() {
   }
 });
 
-app.directive("unique", function(uniqueValidationService, $timeout) {
-  var timeout;
-  
-  return {
-    restrict: "AE",
-    require: "ngModel",
-    link: function(scope, elem, attr, ngModel) {
-      elem.bind("blur", function() {
-        var params = {};
-        if (attr.old === ngModel.$viewValue) return;
-        
-        params[attr.unique] = ngModel.$viewValue;
-        
-        uniqueValidationService.isUnique(params, attr.url)
-          .then(function(unique) {
-            ngModel.$setValidity("unique", unique);
-          }, function(error) {
-            ngModel.$setValidity("unique", false);
-          });
-      });
-    }
-  };
-});
+app.directive("unique", [
+  "uniqueValidationService",
+  "$timeout",
+  function(uniqueValidationService, $timeout) {
+    var timeout;
+    
+    return {
+      restrict: "AE",
+      require: "ngModel",
+      link: function(scope, elem, attr, ngModel) {
+        elem.bind("blur", function() {
+          var params = {};
+          if (attr.old === ngModel.$viewValue) return;
+          
+          params[attr.unique] = ngModel.$viewValue;
+          
+          uniqueValidationService.isUnique(params, attr.url)
+            .then(function(unique) {
+              ngModel.$setValidity("unique", unique);
+            }, function(error) {
+              ngModel.$setValidity("unique", false);
+            });
+        });
+      }
+    };
+}]);

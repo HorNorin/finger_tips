@@ -3,6 +3,6 @@
   <td><%= user.username %></td>
   <td><%= user.email %></td>
   <td>
-    <%= link_to "Delete", [:admin, user], method: :delete, data: {confirm: "Are you sure?"} %>
+    <%= link_to t("users.index.table.link.delete"), [:admin, user], method: :delete, data: {confirm: "Are you sure?"} %>
   </td>
 </tr>

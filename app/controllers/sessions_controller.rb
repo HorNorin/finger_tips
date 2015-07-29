@@ -11,21 +11,21 @@ class SessionsController < ApplicationController
     if @user && @user.authenticate(params[:password]) && @user.normal?
       if @user.account_activated?
         params[:remember_me] ? login_and_remember(@user) : login(@user)
-        flash[:success] = "Welcome, #{@user.username}!"
+        flash[:success] = t("flash.sessions.login.success", username: @user.username)
         redirect_back_or root_path
       else
-        flash.now[:error] = "You need to activate your account before you can login."
+        flash.now[:error] = t("flash.sessions.login.activate_error")
         render "new"
       end
     else
-      flash.now[:error] = "Invalid email or password"
+      flash.now[:error] = t("flash.sessions.login.error")
       render "new"
     end
   end
   
   def destroy
     logout
-    flash[:success] = "Goodbye!"
+    flash[:success] = t("flash.sessions.logout.success")
     redirect_to root_path
   end
   
@@ -33,14 +33,14 @@ class SessionsController < ApplicationController
   
   def redirect_logged_in_user
     if user_logged_in?
-      flash[:error] = "You have already logged in."
+      flash[:error] = t("flash.sessions.login.logged_in_error")
       redirect_to root_path
     end
   end
   
   def redirect_not_logged_in_user
     unless user_logged_in?
-      flash[:error] = "You need to login first before you can logout."
+      flash[:error] = t("flash.sessions.logout.error")
       redirect_to login_path
     end
   end

@@ -3,7 +3,7 @@
   <td><%= lesson.name %></td>
   <td><%= lesson.episodes.size %></td>
   <td>
-    <%= link_to "Edit", edit_admin_lesson_path(lesson) %> | 
-    <%= link_to "Delete", [:admin, lesson], method: :delete, data: {confirm: "Are you sure?"} %>
+    <%= link_to t("lessons.index.table.link.edit"), edit_admin_lesson_path(lesson) %> | 
+    <%= link_to t("lessons.index.table.link.delete"), [:admin, lesson], method: :delete, data: {confirm: "Are you sure?"} %>
   </td>
 </tr>

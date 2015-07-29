@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="App">
+<html ng-app="App" lang="<%= I18n.locale %>">
 <head>
   <title>FingerTips</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/1.17.0/TweenMax.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <%= csrf_meta_tags %>
 </head>
@@ -20,14 +21,23 @@
 <div id="footer">
   <div class="container">
     <ul class="left">
-      <li><%= link_to "Facebook", "#" %></li>
-      <li><%= link_to "Twitter", "#" %></li>
+      <li class="facebook">
+        <%= link_to "https://www.facebook.com/PrinceNorin" do %>
+          <i class="fa fa-lg fa-facebook-square"></i>
+        <% end %>
+      </li>
+      <li class="twitter">
+        <%= link_to "https://twitter.com/NorinHor" do %>
+          <i class="fa fa-lg fa-twitter-square"></i>
+        <% end %>
+      </li>
     </ul>
     <ul class="right">
-      <li><%= link_to "About Us", "#" %></li>
-      <li><%= link_to "Contact Us", "#" %></li>
+      <li><%= link_to t("footer.about"), about_path %></li>
+      <li><%= link_to t("footer.contact"), contact_path %></li>
     </ul>
   </div>
 </div>
+<%= debug session[:back] %>
 </body>
 </html>

@@ -34,6 +34,7 @@ module SessionsHelper
   def redirect_back_or(path)
     back = session[:back]
     session[:back] = nil
+    back.try(:sub!, /en|kh/, I18n.locale.to_s)
     redirect_to back || path
   end
   

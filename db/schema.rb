@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150728070659) do
+ActiveRecord::Schema.define(version: 20150729021404) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -20,6 +20,19 @@ ActiveRecord::Schema.define(version: 20150728070659) do
     t.datetime "updated_at", null: false
     t.integer  "episode_id"
   end
+
+  create_table "episode_translations", force: :cascade do |t|
+    t.integer  "episode_id",  null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "slug"
+    t.string   "title"
+    t.text     "description"
+  end
+
+  add_index "episode_translations", ["episode_id"], name: "index_episode_translations_on_episode_id"
+  add_index "episode_translations", ["locale"], name: "index_episode_translations_on_locale"
 
   create_table "episodes", force: :cascade do |t|
     t.string   "title"
@@ -47,6 +60,18 @@ ActiveRecord::Schema.define(version: 20150728070659) do
   add_index "friendly_id_slugs", ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+
+  create_table "lesson_translations", force: :cascade do |t|
+    t.integer  "lesson_id",  null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "slug"
+    t.string   "name"
+  end
+
+  add_index "lesson_translations", ["lesson_id"], name: "index_lesson_translations_on_lesson_id"
+  add_index "lesson_translations", ["locale"], name: "index_lesson_translations_on_locale"
 
   create_table "lessons", force: :cascade do |t|
     t.string   "name"

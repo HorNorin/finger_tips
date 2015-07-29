@@ -3,6 +3,7 @@
   "dependencies": {
     "angular": "latest",
     "angular-resource": "latest",
+    "angular-translate": "latest",
     "ng-timeago": "latest",
     "angular-animate": "latest",
     "angular-messages": "latest",

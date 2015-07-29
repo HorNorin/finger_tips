@@ -2,7 +2,9 @@ class Admin::LessonsController < Admin::AdminController
   before_action :set_lesson, except: [:index, :new, :create]
   
   def index
-    @lessons = Lesson.paginate(page: params[:page], per_page: 12).order("created_at DESC")
+    @lessons = Lesson.with_translations(I18n.locale)
+                     .paginate(page: params[:page], per_page: 12)
+                     .order("created_at DESC")
   end
   
   def new

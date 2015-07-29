@@ -2,7 +2,10 @@ class Admin::EpisodesController < Admin::AdminController
   before_action :set_episode, except: [:index, :new, :create]
   
   def index
-    @episodes = Episode.includes(:lesson).paginate(page: params[:page], per_page: 12).order("created_at DESC")
+    @episodes = Episode.includes(:lesson)
+                       .with_translations(I18n.locale)
+                       .paginate(page: params[:page], per_page: 12)
+                       .order("created_at DESC")
   end
   
   def new

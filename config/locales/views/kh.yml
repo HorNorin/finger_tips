@@ -1,0 +1,95 @@
+kh:
+  header:
+    login: "ចូលប្រើប្រាស់"
+    users: "អន្កកប្រើប្រាស់"
+    username: "ស្វាគមន៍ %{username}"
+    logout: "ចាកចេញ"
+    series: "ភាគ"
+    account: "គណនី"
+    lessons: "មេរៀន"
+    logo: "FingerTips"
+    register: "ចុះឈ្មោះ"
+  lessons:
+    index:
+      all: "ទាំងអស់"
+      next: "បន្ទាប់"
+      prev: "មុន"
+      search: "ស្វែងរក"
+      trending: "ថ្មីថ្មី"
+      new_button: "មេរៀនថ្មី"
+      table:
+        name: "ចំណងជើង"
+        total: "ភាគសរុប"
+        setting: "ការកំណត់"
+        link:
+          edit: "កែប្រែ"
+          delete: "លុបចោល"
+    new:
+  episodes:
+    index:
+      all: "ទាំងអស់"
+      next: "បន្ទាប់"
+      prev: "មុន"
+      search: "ស្វែងរក"
+      trending: "ថ្មីថ្មី"
+      new_button: "ភាគថ្មី"
+      table:
+        title: "ចំណងជើង"
+        duration: "រយះពេល"
+        lesson: "មេរៀន"
+        setting: "ការកំណត់"
+        link:
+          edit: "កែប្រែ"
+          delete: "លុបចោល"
+    show:
+      published: "ធ្វីឡើងនូវ"
+  sessions:
+    new:
+      title: "ចូលប្រើប្រាស់"
+      email: "អ៊ីម៉ែល"
+      password: "លេខសម្ងាត់"
+      remember: "ចងចាំ"
+      submit: "ចូលប្រើប្រាស់"
+      forget: "ភ្លេចលេខសម្ងាត់?"
+  users:
+    index:
+      table:
+        username: "ឈ្មោះអ្នកប្រើប្រាស់"
+        email: "អ៊ីម៉ែល"
+        setting: "ការកំណត់"
+        link:
+          delete: "លុបចោល"
+    new:
+      title: "ចុះឈ្មោះប្រើប្រាស់"
+      email: "អ៊ីម៉ែល"
+      password: "លេខសម្ងាត់"
+      password_confirmation: "បញ្ជាក់ លេខសម្ងាត់"
+      username: "ឈ្មោះអ្នកប្រើប្រាស់"
+      submit: "ចុះឈ្មោះ"
+      errors:
+        required: "តំរូវអោយមាន"
+        short: "ខ្លីពេក (៥)"
+        long: "វែងពេក (២៥)"
+        format: "មឹនត្រឹមត្រូវ"
+        exists: "មានរួចហើយ"
+        not_match: "មិនដូចគ្នា"
+  about:
+    title: "ស្វែងយល់ អំពីពួកយើង"
+  contact:
+    title: "ទាក់ទំនង ពួកយើង"
+  footer:
+    about: "ស្វែងយល់"
+    contact: "ទាក់ទំនង"
+  will_paginate:
+    previous_label: "មុន"
+    next_label: "បន្ទាប់"
+  flash:
+    sessions:
+      login:
+        success: "សូមស្វាគមន៍ %{username}"
+        activate_error: "គណនីមិនដំនើការ"
+        error: "អ៊ីម៉ែល រឺ លេខសម្ងាត់មិនត្រឹមត្រូវ"
+        logged_in_error: "អ្នកបានចូលប្រើប្រាស់រួចហើយ"
+      logout:
+        success: "ថ្ងៃក្រោយមកទៀត"
+        error: "អ្នកមិនបានចូលប្រើប្រាស់ទេ"

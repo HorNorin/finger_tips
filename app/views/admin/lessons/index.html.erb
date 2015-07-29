@@ -3,7 +3,7 @@
     <% if @lessons.any? %>
       <div class="row">
         <div class="col-xs-3 col-xs-push-9">
-          <%= link_to "New Lesson", new_admin_lesson_path, class: "btn btn-danger pull-right" %>
+          <%= link_to t("lessons.index.new_button"), new_admin_lesson_path, class: "btn btn-danger pull-right" %>
         </div>
       </div>
       
@@ -11,9 +11,9 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Total episodes</th>
-            <th>Setting</th>
+            <th><%= t("lessons.index.table.name") %></th>
+            <th><%= t("lessons.index.table.total") %></th>
+            <th><%= t("lessons.index.table.setting") %></th>
           </tr>
         </thead>
         <tbody>

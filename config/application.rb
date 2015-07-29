@@ -35,5 +35,8 @@ module FingerTips
     config.assets.paths << Rails.root.join("vendor", "assets", "bower_components")
     config.assets.paths << Rails.root.join("assets", "fonts")
     config.assets.precompile += %w( .svg .eot .woff .ttf .otf)
+    
+    config.i18n.fallbacks = true
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
   end
 end

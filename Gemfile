@@ -16,9 +16,10 @@ gem 'bower-rails'
 gem 'carrierwave'
 gem 'will_paginate'
 gem 'friendly_id'
+gem 'friendly_id-globalize'
 gem 'bootstrap-will_paginate'
-gem 'font-awesome-rails'
 gem 'active_link_to'
+gem 'globalize', '~> 5.0.0'
 
 group :development, :test do
   gem 'byebug'
